@@ -1,0 +1,6 @@
+.sectionDivider {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  height: 1px;
+  width: 100%;
+  margin: 1rem 0;
+}
