@@ -33,24 +33,11 @@ const WeeklyFeatured = () => {
           </div>
           <div className="relative">
             <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden movie-card">
-              <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                  <p className="text-gray-400">The Crown - Season 4</p>
-                </div>
-              </div>
+              <img
+                src="https://image.tmdb.org/t/p/w780/6LWy0jvMpmjoS9fojNgHIKoWL05.jpg"
+                alt="The Crown - Season 4"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>

@@ -1,18 +1,16 @@
-import { PlayIcon, StarIcon } from "../../../components/common/Icons";
+import { StarIcon } from "../../../components/common/Icons";
 
 const TopCard = () => {
   return (
     <div className="movie-card group cursor-pointer">
       <div className="relative overflow-hidden rounded-xl">
-        <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-              <PlayIcon />
-            </div>
-            <p className="text-gray-500 text-sm">House of the Dragon</p>
-          </div>
+        <div className="aspect-video bg-gray-900">
+          <img
+            src="https://image.tmdb.org/t/p/w780/6LWy0jvMpmjoS9fojNgHIKoWL05.jpg"
+            alt="House of the Dragon"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
       </div>
       <div className="pt-4">
         <h3 className="text-xl font-semibold mb-2">House of the Dragon</h3>

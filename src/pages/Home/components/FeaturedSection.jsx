@@ -46,7 +46,7 @@ const FeaturedSection = () => {
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-72 md:w-80 lg:w-96 group">
               <img
-                src="img/hero.jpg" // Or use {heroImage} if imported
+                src="https://image.tmdb.org/t/p/w500/crfIGHFSs02YxeYOzejHNiTVQEm.jpg"
                 alt="Arrival Movie Poster"
                 className="rounded-xl w-full shadow-2xl shadow-black/60 transition-transform duration-500 ease-in-out group-hover:scale-105 mt-14"
               />
