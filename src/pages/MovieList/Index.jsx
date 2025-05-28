@@ -43,6 +43,7 @@ const MovieListPage = () => {
               {data?.results?.map((movie) => (
                 <MovieCard
                   key={movie.id}
+                  id={movie.id}
                   title={movie.title}
                   releaseYear={new Date(movie.release_date).getFullYear()}
                   rating={movie.vote_average}

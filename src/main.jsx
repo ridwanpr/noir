@@ -7,6 +7,7 @@ import HomePage from "./pages/Home/HomePage";
 import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import MovieListPage from "./pages/MovieList/Index";
+import MovieDetailPage from "./pages/MovieDetail/Index";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/movies",
     element: <MovieListPage />,
+  },
+  {
+    path: "/movies/:id",
+    element: <MovieDetailPage />,
   },
 ]);
 
