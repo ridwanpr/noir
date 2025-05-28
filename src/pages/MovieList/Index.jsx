@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Footer from "../../components/layouts/Footer/Footer";
-import Navbar from "../../components/layouts/Navbar/Navbar";
 import MovieCard from "./components/MovieCard";
 import MovieFilter from "./components/MovieFilter";
 import Pagination from "../../components/common/Pagination";
 import { useMovies } from "../../hooks/movieHooks";
+import AppLayout from "../../components/layouts/AppLayout";
 
 const MovieListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,29 +35,29 @@ const MovieListPage = () => {
 
   return (
     <>
-      <Navbar />
-      <section className="py-16 pt-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <MovieFilter sort={sort} setSort={setSort} />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
-            {data?.results?.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                title={movie.title}
-                releaseYear={new Date(movie.release_date).getFullYear()}
-                rating={movie.vote_average}
-                posterPath={movie.poster_path}
-              />
-            ))}
+      <AppLayout>
+        <section className="py-16 pt-32">
+          <div className="max-w-7xl mx-auto px-6">
+            <MovieFilter sort={sort} setSort={setSort} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
+              {data?.results?.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  title={movie.title}
+                  releaseYear={new Date(movie.release_date).getFullYear()}
+                  rating={movie.vote_average}
+                  posterPath={movie.poster_path}
+                />
+              ))}
+            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      </section>
-      <Footer />
+        </section>
+      </AppLayout>
     </>
   );
 };

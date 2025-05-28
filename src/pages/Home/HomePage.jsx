@@ -1,6 +1,5 @@
 import SectionDivider from "../../components/common/SectionDivider/SectionDivider";
-import Footer from "../../components/layouts/Footer/Footer";
-import Navbar from "../../components/layouts/Navbar/Navbar";
+import AppLayout from "../../components/layouts/AppLayout";
 import { useMovie, useTopMovies } from "../../hooks/movieHooks";
 import { useTopSeries } from "../../hooks/seriesHooks";
 import FeaturedSection from "./components/FeaturedSection";
@@ -15,14 +14,14 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
-      <FeaturedSection data={featuredSelection} />
-      <WeeklyFeatured data={weeklyFeatured} />
-      <SectionDivider />
-      <TopSection title="Popular Movies" items={topMovies} type={"movies"} />
-      <SectionDivider />
-      <TopSection title="Popular Series" items={topSeries} />
-      <Footer />
+      <AppLayout>
+        <FeaturedSection data={featuredSelection} />
+        <WeeklyFeatured data={weeklyFeatured} />
+        <SectionDivider />
+        <TopSection title="Popular Movies" items={topMovies} type={"movies"} />
+        <SectionDivider />
+        <TopSection title="Popular Series" items={topSeries} />
+      </AppLayout>
     </>
   );
 };
