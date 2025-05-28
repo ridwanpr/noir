@@ -25,3 +25,13 @@ export const fetchMovieById = async (movieId) => {
   const response = await api.get(`/movie/${movieId}`);
   return response.data;
 };
+
+export const fetchMovieVideo = async (movieId) => {
+  const response = await api.get(`/movie/${movieId}/videos`);
+  return response.data;
+};
+
+export const fetchMovieCredits = async (movieId) => {
+  const response = await api.get(`/movie/${movieId}/credits`);
+  return response.data;
+};

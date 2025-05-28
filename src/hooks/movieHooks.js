@@ -3,6 +3,8 @@ import {
   getMovies,
   fetchTopMovies,
   fetchMovieById,
+  fetchMovieVideo,
+  fetchMovieCredits,
 } from "../services/movieService";
 
 export const useMovies = (sort, page) => {
@@ -26,6 +28,22 @@ export const useMovie = (movieId) => {
   return useQuery({
     queryKey: ["movie", movieId],
     queryFn: () => fetchMovieById(movieId),
+    staleTime: 60000 * 60,
+  });
+};
+
+export const useMovieVideo = (movieId) => {
+  return useQuery({
+    queryKey: ["movie-video", movieId],
+    queryFn: () => fetchMovieVideo(movieId),
+    staleTime: 60000 * 60,
+  });
+};
+
+export const useMovieCredits = (movieId) => {
+  return useQuery({
+    queryKey: ["movie-credits", movieId],
+    queryFn: () => fetchMovieCredits(movieId),
     staleTime: 60000 * 60,
   });
 };
