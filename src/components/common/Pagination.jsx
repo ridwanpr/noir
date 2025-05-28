@@ -46,7 +46,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handlePrev}
         disabled={currentPage === 1}
-        className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 hover:cursor-pointer"
       >
         &laquo; Prev
       </button>
@@ -55,7 +55,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <>
           <button
             onClick={() => handlePageClick(1)}
-            className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm"
+            className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm hover:bg-gray-200 hover:cursor-pointer"
           >
             1
           </button>
@@ -69,8 +69,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => handlePageClick(page)}
           className={`pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm ${
             currentPage === page
-              ? "bg-blue-600 text-white font-semibold shadow"
-              : "hover:bg-gray-200"
+              ? "bg-gray-600 text-white font-semibold shadow"
+              : "hover:bg-gray-200 hover:cursor-pointer"
           }`}
         >
           {page}
@@ -84,7 +84,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           )}
           <button
             onClick={() => handlePageClick(cappedTotalPages)}
-            className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm"
+            className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm hover:bg-gray-200 hover:cursor-pointer"
           >
             {cappedTotalPages}
           </button>
@@ -94,7 +94,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handleNext}
         disabled={currentPage === cappedTotalPages}
-        className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        className="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 hover:cursor-pointer"
       >
         Next &raquo;
       </button>
@@ -103,3 +103,4 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 };
 
 export default Pagination;
+

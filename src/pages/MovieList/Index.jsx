@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../../components/layouts/Footer/Footer";
 import Navbar from "../../components/layouts/Navbar/Navbar";
-import useMovies from "../../hooks/useMovies";
 import MovieCard from "./components/MovieCard";
 import MovieFilter from "./components/MovieFilter";
 import Pagination from "../../components/common/Pagination";
+import { useMovies } from "../../hooks/movieHooks";
 
 const MovieListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,14 +23,12 @@ const MovieListPage = () => {
     setSearchParams({ page: page.toString(), sort });
   };
 
-  // Sync state when URL page param changes
   useEffect(() => {
     if (pageFromUrl !== currentPage) {
       setCurrentPage(pageFromUrl);
     }
   }, [pageFromUrl]);
 
-  // Reset page to 1 when sort changes and sync URL
   useEffect(() => {
     setCurrentPage(1);
     setSearchParams({ page: "1", sort });

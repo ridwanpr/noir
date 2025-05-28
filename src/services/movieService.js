@@ -15,3 +15,13 @@ export const getMovies = async (sort, page = 1) => {
   });
   return response.data;
 };
+
+export const fetchTopMovies = async () => {
+  const response = await api.get("/movie/popular", { params: { page: 1 } });
+  return response.data.results.slice(0, 2);
+};
+
+export const fetchMovieById = async (movieId) => {
+  const response = await api.get(`/movie/${movieId}`);
+  return response.data;
+};

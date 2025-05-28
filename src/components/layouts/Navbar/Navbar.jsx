@@ -27,12 +27,6 @@ const Navbar = () => {
               >
                 Series
               </a>
-              <a
-                href="#"
-                className="nav-item text-sm font-medium text-gray-300 hover:text-white"
-              >
-                Trending
-              </a>
             </div>
           </div>
 

@@ -1,25 +1,25 @@
 import { StarIcon } from "../../../components/common/Icons";
 
-const TopCard = () => {
+const TopCard = ({ title, backdrop_path, rating }) => {
   return (
     <div className="movie-card group cursor-pointer">
       <div className="relative overflow-hidden rounded-xl">
         <div className="aspect-video bg-gray-900">
           <img
-            src="https://image.tmdb.org/t/p/w780/6LWy0jvMpmjoS9fojNgHIKoWL05.jpg"
-            alt="House of the Dragon"
+            src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+            alt={title}
             className="w-full h-full object-cover"
           />
         </div>
       </div>
       <div className="pt-4">
-        <h3 className="text-xl font-semibold mb-2">House of the Dragon</h3>
+        <h3 className="text-xl font-semibold mb-2">{title}</h3>
         <div className="flex items-center justify-between text-sm text-gray-400">
           <div className="flex items-center space-x-4">
-            <span>2022-2024</span>
+            <span>2025</span>
             <div className="flex items-center space-x-1">
               <StarIcon />
-              <span>8.5</span>
+              <span>{rating}</span>
             </div>
           </div>
           <span>2 Seasons</span>
