@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const FeaturedSection = ({ data }) => {
   const { title, release_date, overview, vote_average, poster_path, genres } =
     data;
@@ -23,19 +25,18 @@ const FeaturedSection = ({ data }) => {
               </p>
             )}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-              <a
-                href="#"
+              <Link
+                to={`/movies/${data.id}`}
                 className="group relative inline-block text-lg font-medium text-black bg-white px-10 py-4 rounded-md shadow-lg shadow-white/5 transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-white/10 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
               >
-                <span className="relative z-10">Movie Detail</span>
-                <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-md"></span>
-              </a>
-              <a
-                href="#"
+                Movie Detail
+              </Link>
+              <Link
+                to="/movies"
                 className="group relative inline-block text-lg font-medium text-gray-300 bg-black border border-gray-800 px-10 py-4 rounded-md transition-all duration-300 ease-in-out hover:border-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-black"
               >
                 Explore Movie
-              </a>
+              </Link>
             </div>
 
             <div className="mt-16 text-gray-600 font-mono text-xs space-y-2 text-center lg:text-left">
