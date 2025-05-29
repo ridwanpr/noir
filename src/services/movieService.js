@@ -35,3 +35,8 @@ export const fetchMovieCredits = async (movieId) => {
   const response = await api.get(`/movie/${movieId}/credits`);
   return response.data;
 };
+
+export const fetchMovieRecommendations = async (movieId) => {
+  const response = await api.get(`/movie/${movieId}/recommendations`);
+  return response.data.results.slice(0, 4);
+};

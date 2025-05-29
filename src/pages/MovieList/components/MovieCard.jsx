@@ -15,7 +15,7 @@ const MovieCard = ({ id, title, releaseYear, rating, posterPath }) => {
           <img
             src={`https://image.tmdb.org/t/p/w500/${posterPath}`}
             alt={title}
-            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-all hover:scale-105 duration-300 ease-in-out ${
               loaded ? "opacity-100" : "opacity-0"
             }`}
             onLoad={() => setLoaded(true)}
