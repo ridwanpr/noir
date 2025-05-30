@@ -34,7 +34,7 @@ const MovieCard = ({ id, title, releaseYear, rating, posterPath }) => {
             <span>{releaseYear}</span>
             <div className="flex items-center space-x-1">
               <StarIcon />
-              <span>{rating}</span>
+              <span>{rating.toFixed(1)}</span>
             </div>
           </div>
         </div>

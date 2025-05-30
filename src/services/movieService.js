@@ -18,7 +18,7 @@ export const getMovies = async (sort, page = 1) => {
 
 export const fetchTopMovies = async () => {
   const response = await api.get("/movie/popular", { params: { page: 1 } });
-  return response.data.results.slice(0, 2);
+  return response.data.results.slice(0, 4);
 };
 
 export const fetchMovieById = async (movieId) => {

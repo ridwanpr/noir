@@ -24,6 +24,7 @@ const TopSection = ({ title, items, type }) => {
               }
               backdrop_path={item.backdrop_path}
               rating={item.vote_average}
+              id={item.id}
             />
           ))}
         </div>

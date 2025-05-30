@@ -11,6 +11,7 @@ import SectionDivider from "../../components/common/SectionDivider/SectionDivide
 import MovieTrailer from "./components/MovieTrailer";
 import MovieCredits from "./components/MovieCredits";
 import Recommendation from "./components/Recommendation";
+import MovieReviews from "./components/MovieReviews";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -36,7 +37,12 @@ const MovieDetailPage = () => {
       <SectionDivider />
       <MovieCredits data={movieCredits} isLoading={isLoadingCredits} />
       <SectionDivider />
-      <Recommendation data={moviRecommendation} isLoading={isLoadingRecommendation} />
+      <MovieReviews />
+      <SectionDivider />
+      <Recommendation
+        data={moviRecommendation}
+        isLoading={isLoadingRecommendation}
+      />
     </AppLayout>
   );
 };
