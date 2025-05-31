@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   params: {
-    api_key: import.meta.env.VITE_TMDB_API_KEY,
+    api_key: "35ea889947e41d5818fff53ecbb4896f",
   },
 });
 
