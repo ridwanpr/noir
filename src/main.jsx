@@ -8,12 +8,15 @@ import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import MovieListPage from "./pages/MovieList/Index";
 import MovieDetailPage from "./pages/MovieDetail/Index";
+import NotFound from "./pages/NotFound";
+import WatchListPage from "./pages/WatchList/Index";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <NotFound />,
   },
   {
     path: "/login",
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/movies/:id",
     element: <MovieDetailPage />,
+  },
+  {
+    path: "watchlist",
+    element: <WatchListPage />,
   },
 ]);
 

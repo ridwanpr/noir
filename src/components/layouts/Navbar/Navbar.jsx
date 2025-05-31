@@ -1,9 +1,10 @@
 import { Link } from "react-router";
-import "./Navbar.module.css";;
+import "./Navbar.module.css";
 import { SearchIcon, UserIcon } from "../../common/Icons";
+import useUserStore from "../../../store/userStore";
 
 const Navbar = () => {
-  const { token } = false;
+  const token = useUserStore((state) => state.token);
   return (
     <nav className="fixed top-0 w-full z-50 glass-effect">
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -37,7 +38,7 @@ const Navbar = () => {
             </div>
             {token ? (
               <Link
-                to="/profile"
+                to="/watchlist"
                 className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors"
               >
                 <span className="w-4 h-4">
