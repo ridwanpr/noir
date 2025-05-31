@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import Button from "../common/Button";
 import CheckBox from "../common/Form/Checkbox";
 import Form from "../common/Form/Form";
@@ -6,8 +9,58 @@ import Input from "../common/Form/Input";
 import { EmailIcon, LockIcon, UserIcon } from "../common/Icons";
 
 const RegisterForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    agree: false,
+  });
+
+  const registerMutation = useMutation({
+    mutationFn: async (data) => {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/register",
+        data
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      console.log("Registration successful:", data);
+    },
+    onError: (error) => {
+      console.error(
+        "Registration failed:",
+        error.response?.data || error.message
+      );
+    },
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) return;
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      password_confirmation: formData.confirmPassword,
+      agree: formData.agree,
+    };
+
+    registerMutation.mutate(payload);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <FormGroup label="Full Name" name="name">
         <span className="absolute left-3 top-3.5 w-5 h-5 text-gray-500">
           <UserIcon />
@@ -17,6 +70,8 @@ const RegisterForm = () => {
           type="text"
           placeholder="Enter your name"
           required={true}
+          value={formData.name}
+          onChange={handleChange}
         />
       </FormGroup>
       <FormGroup label="Email" name="email">
@@ -28,6 +83,8 @@ const RegisterForm = () => {
           type="email"
           placeholder="Enter your email"
           required={true}
+          value={formData.email}
+          onChange={handleChange}
         />
       </FormGroup>
       <FormGroup label="Password" name="password">
@@ -39,25 +96,33 @@ const RegisterForm = () => {
           type="password"
           placeholder="••••••••"
           required={true}
+          value={formData.password}
+          onChange={handleChange}
         />
       </FormGroup>
-      <FormGroup label="Confirm Password" name="confirm-password">
+      <FormGroup label="Confirm Password" name="confirmPassword">
         <span className="absolute left-3 top-3.5 w-5 h-5 text-gray-500">
           <LockIcon />
         </span>
         <Input
-          name="password"
+          name="confirmPassword"
           type="password"
           placeholder="••••••••"
           required={true}
+          value={formData.confirmPassword}
+          onChange={handleChange}
         />
       </FormGroup>
       <CheckBox
-        name="remember-me"
+        name="agree"
         type="checkbox"
-        title="I agree to the Terms of Service and Privacy Policy. "
+        title="I agree to the Terms of Service and Privacy Policy."
+        checked={formData.agree}
+        onChange={handleChange}
       />
-      <Button styles="w-full">Sign Up</Button>
+      <Button type="submit" styles="w-full">
+        {registerMutation.isPending ? "Submitting..." : "Sign Up"}
+      </Button>
     </Form>
   );
 };
