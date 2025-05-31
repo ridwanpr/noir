@@ -8,7 +8,6 @@ import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import MovieListPage from "./pages/MovieList/Index";
 import MovieDetailPage from "./pages/MovieDetail/Index";
-import AppProvider from "./context/AppProvider";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -37,9 +36,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={client}>
-      <AppProvider>
-        <RouterProvider router={router} />
-      </AppProvider>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>
 );

@@ -1,12 +1,9 @@
 import { Link } from "react-router";
-import { useContext } from "react";
-import "./Navbar.module.css";
-import { AppContext } from "../../../context/AppContext";
+import "./Navbar.module.css";;
 import { SearchIcon, UserIcon } from "../../common/Icons";
 
 const Navbar = () => {
-  const { token } = useContext(AppContext);
-
+  const { token } = false;
   return (
     <nav className="fixed top-0 w-full z-50 glass-effect">
       <div className="max-w-7xl mx-auto px-6 py-4">
