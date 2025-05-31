@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import CheckBox from "../common/Form/Checkbox";
 import Form from "../common/Form/Form";
@@ -17,6 +18,8 @@ const RegisterForm = () => {
     agree: false,
   });
 
+  const navigate = useNavigate();
+
   const registerMutation = useMutation({
     mutationFn: async (data) => {
       const response = await axios.post(
@@ -25,8 +28,9 @@ const RegisterForm = () => {
       );
       return response.data;
     },
-    onSuccess: (data) => {
-      console.log("Registration successful:", data);
+    onSuccess: () => {
+      alert("Registration successful. Please log in to continue.");
+      navigate("/login");
     },
     onError: (error) => {
       console.error(
