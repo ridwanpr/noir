@@ -7,6 +7,7 @@ const useUserStore = create(
       user: null,
       token: null,
       setUser: (user, token) => set({ user, token }),
+      clearUser: () => set({ user: null, token: null }),
     }),
     {
       name: "user-storage",

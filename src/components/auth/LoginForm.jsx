@@ -1,13 +1,11 @@
+// src/components/auth/LoginForm.jsx
 import { useState } from "react";
+import { useLogin } from "../../hooks/authHooks";
 import Button from "../common/Button";
 import Form from "../common/Form/Form";
 import FormGroup from "../common/Form/FormGroup";
 import Input from "../common/Form/Input";
 import { EmailIcon, LockIcon } from "../common/Icons";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import useUserStore from "../../store/userStore";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -15,27 +13,7 @@ const LoginForm = () => {
     password: "",
   });
 
-  const { setUser } = useUserStore();
-
-  const navigate = useNavigate();
-
-  const loginMutation = useMutation({
-    mutationFn: async (data) => {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/login",
-        data
-      );
-      return response.data;
-    },
-    onSuccess: (data) => {
-      setUser(data.user, data.token);
-      alert("Login successful.");
-      navigate("/");
-    },
-    onError: (error) => {
-      console.error("Login failed:", error.response?.data || error.message);
-    },
-  });
+  const loginMutation = useLogin();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -47,12 +25,10 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const payload = {
       email: formData.email,
       password: formData.password,
     };
-
     loginMutation.mutate(payload);
   };
 
@@ -72,6 +48,7 @@ const LoginForm = () => {
             onChange={handleChange}
           />
         </FormGroup>
+
         <FormGroup label="Password" name="password">
           <span className="absolute left-3 top-3.5 w-5 h-5 text-gray-500">
             <LockIcon />
@@ -87,7 +64,7 @@ const LoginForm = () => {
         </FormGroup>
 
         <Button type="submit" styles="w-full">
-          {loginMutation.isPending ? "Submitting..." : "Login"}
+          {loginMutation.isPending ? "Logging in..." : "Login"}
         </Button>
       </Form>
     </>

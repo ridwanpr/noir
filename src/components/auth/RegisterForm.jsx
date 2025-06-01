@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useRegister } from "../../hooks/authHooks";
 import Button from "../common/Button";
 import CheckBox from "../common/Form/Checkbox";
 import Form from "../common/Form/Form";
@@ -18,27 +16,7 @@ const RegisterForm = () => {
     agree: false,
   });
 
-  const navigate = useNavigate();
-
-  const registerMutation = useMutation({
-    mutationFn: async (data) => {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/register",
-        data
-      );
-      return response.data;
-    },
-    onSuccess: () => {
-      alert("Registration successful. Please log in to continue.");
-      navigate("/login");
-    },
-    onError: (error) => {
-      console.error(
-        "Registration failed:",
-        error.response?.data || error.message
-      );
-    },
-  });
+  const registerMutation = useRegister();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,7 +28,15 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) return;
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    if (!formData.agree) {
+      alert("Please agree to the Terms of Service and Privacy Policy.");
+      return;
+    }
 
     const payload = {
       name: formData.name,
@@ -78,6 +64,7 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       </FormGroup>
+
       <FormGroup label="Email" name="email">
         <span className="absolute left-3 top-3.5 w-5 h-5 text-gray-500">
           <EmailIcon />
@@ -91,6 +78,7 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       </FormGroup>
+
       <FormGroup label="Password" name="password">
         <span className="absolute left-3 top-3.5 w-5 h-5 text-gray-500">
           <LockIcon />
@@ -104,6 +92,7 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       </FormGroup>
+
       <FormGroup label="Confirm Password" name="confirmPassword">
         <span className="absolute left-3 top-3.5 w-5 h-5 text-gray-500">
           <LockIcon />
@@ -117,6 +106,7 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       </FormGroup>
+
       <CheckBox
         name="agree"
         type="checkbox"
@@ -124,7 +114,12 @@ const RegisterForm = () => {
         checked={formData.agree}
         onChange={handleChange}
       />
-      <Button type="submit" styles="w-full">
+
+      <Button
+        type="submit"
+        styles="w-full"
+        disabled={registerMutation.isPending}
+      >
         {registerMutation.isPending ? "Submitting..." : "Sign Up"}
       </Button>
     </Form>
