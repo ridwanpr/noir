@@ -26,14 +26,12 @@ const MovieHero = ({ data, credits }) => {
               <span>{release_date}</span>
               <span>•</span>
               <span>{genres.map((genre) => genre.name).join(", ")}</span>
-              <span>•</span>
-              <span>1h 56m</span>
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter text-white mb-4">
               {title}
             </h1>
             <div className="flex items-center justify-center lg:justify-start space-x-4 mb-6">
-              <div className="flex items-center space-x-1 bg-black/20 backdrop-blur-sm border border-white/5 px-3 py-1 rounded-full">
+              <div className="flex items-center space-x-1 bg-black/20 backdrop-blur-sm border border-white/5 py-1 rounded-full">
                 <StarIcon />
                 <span className="text-white font-medium text-lg">
                   {vote_average.toFixed(1)}
