@@ -50,10 +50,11 @@ const MovieHero = ({ data, credits }) => {
             <p className="text-gray-400 mb-10 font-light">
               Starring:{" "}
               <span className="text-white font-medium">
-                {credits.cast
-                  .map((actor) => actor.name)
-                  .slice(0, 3)
-                  .join(", ")}
+                {credits &&
+                  credits.cast
+                    .map((actor) => actor.name)
+                    .slice(0, 3)
+                    .join(", ")}
               </span>
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
