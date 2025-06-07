@@ -44,7 +44,7 @@ export const fetchMovieRecommendations = async (movieId) => {
 
 export const fetchMovieReviews = async (movieId) => {
   const token = useUserStore.getState().token;
-  const response = await api.get(`http://localhost:8000/reviews/${movieId}`, {
+  const response = await api.get(`http://localhost:8000/api/reviews/${movieId}`, {
     headers: {
       Authorization: token ? `Bearer ${token}` : undefined,
     },

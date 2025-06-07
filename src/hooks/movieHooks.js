@@ -64,3 +64,4 @@ export const useMovieReviews = (movieId) => {
     queryFn: () => fetchMovieReviews(movieId),
   });
 };
+

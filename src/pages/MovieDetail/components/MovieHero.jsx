@@ -1,17 +1,47 @@
 import { useState } from "react";
 import { PlayIcon, PlusIcon, StarIcon } from "../../../components/common/Icons";
 import AddWatchlistModal from "./AddWatchlistModal";
+import { useAddToWatchlist } from "../../../hooks/watchlistHooks";
 
 const MovieHero = ({ data, credits }) => {
-  const { title, release_date, overview, vote_average, poster_path, genres } =
-    data;
+  const {
+    title,
+    release_date,
+    overview,
+    vote_average,
+    poster_path,
+    genres,
+    id,
+  } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rating, setRating] = useState("");
+  const [reviewTitle, setReviewTitle] = useState("");
+  const [reviewBody, setReviewBody] = useState("");
+
+  const addToWatchlistMutation = useAddToWatchlist();
 
   const handleAddToWatchlist = () => {
     setIsModalOpen(true);
   };
 
   const handleConfirm = () => {
+    addToWatchlistMutation.mutate({
+      movieId: id,
+      rating,
+      reviewTitle,
+      reviewBody,
+    });
+
+    setRating("");
+    setReviewTitle("");
+    setReviewBody("");
+    setIsModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setRating("");
+    setReviewTitle("");
+    setReviewBody("");
     setIsModalOpen(false);
   };
 
@@ -77,10 +107,15 @@ const MovieHero = ({ data, credits }) => {
                 </a>
                 <button
                   onClick={handleAddToWatchlist}
-                  className="bg-gray-800/50 border border-gray-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700/70 transition-colors flex items-center justify-center space-x-2 hover:cursor-pointer"
+                  disabled={addToWatchlistMutation.isLoading}
+                  className="bg-gray-800/50 border border-gray-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700/70 transition-colors flex items-center justify-center space-x-2 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <PlusIcon />
-                  <span>Add to Watchlist</span>
+                  <span>
+                    {addToWatchlistMutation.isLoading
+                      ? "Adding..."
+                      : "Add to Watchlist"}
+                  </span>
                 </button>
               </div>
             </div>
@@ -90,8 +125,15 @@ const MovieHero = ({ data, credits }) => {
 
       <AddWatchlistModal
         open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleCloseModal}
         onConfirm={handleConfirm}
+        isLoading={addToWatchlistMutation.isLoading}
+        rating={rating}
+        setRating={setRating}
+        reviewTitle={reviewTitle}
+        setReviewTitle={setReviewTitle}
+        reviewBody={reviewBody}
+        setReviewBody={setReviewBody}
       />
     </>
   );

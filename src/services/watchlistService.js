@@ -5,13 +5,21 @@ export const fetchWatchlist = async (filter) => {
   if (filter && filter !== "all") {
     params.filter = filter;
   }
-
   const response = await api.get("/watchlist", { params });
   return response.data;
 };
 
-export const addToWatchlist = async (movieId) => {
-  const response = await api.post("/watchlist", { movie_id: movieId });
+export const addToWatchlist = async (watchlistData) => {
+  const { movieId, rating, reviewTitle, reviewBody } = watchlistData;
+
+  const payload = {
+    movie_id: movieId,
+    rating: parseInt(rating),
+    review_title: reviewTitle,
+    review_body: reviewBody,
+  };
+
+  const response = await api.post("/watchlist", payload);
   return response.data;
 };
 
