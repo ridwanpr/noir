@@ -7,7 +7,7 @@ import WeeklyFeatured from "./components/WeeklyFeatured";
 
 const HomePage = () => {
   const { data: topMovies = [] } = useTopMovies();
-  const { data: weeklyFeatured = [] } = useMovie(324786);
+  const { data: weeklyFeatured = [] } = useMovie(757725);
   const { data: featuredSelection = [] } = useMovie(81);
 
   return (

@@ -29,7 +29,7 @@ export const useMovie = (movieId) => {
   return useQuery({
     queryKey: ["movie", movieId],
     queryFn: () => fetchMovieById(movieId),
-    staleTime: 60000 * 60,
+    staleTime: 60000 * 30,
   });
 };
 
