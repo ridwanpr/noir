@@ -6,6 +6,7 @@ import {
   fetchMovieVideo,
   fetchMovieCredits,
   fetchMovieRecommendations,
+  fetchMovieReviews,
 } from "../services/movieService";
 
 export const useMovies = (sort, page) => {
@@ -54,5 +55,12 @@ export const useMovieRecommendations = (movieId) => {
     queryKey: ["movie-recommendations", movieId],
     queryFn: () => fetchMovieRecommendations(movieId),
     staleTime: 60000 * 60,
+  });
+};
+
+export const useMovieReviews = (movieId) => {
+  return useQuery({
+    queryKey: ["movie-reviews", movieId],
+    queryFn: () => fetchMovieReviews(movieId),
   });
 };

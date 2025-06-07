@@ -5,6 +5,7 @@ import {
   useMovieCredits,
   useMovieRecommendations,
   useMovieVideo,
+  useMovieReviews,
 } from "../../hooks/movieHooks";
 import MovieHero from "./components/MovieHero";
 import SectionDivider from "../../components/common/SectionDivider/SectionDivider";
@@ -21,6 +22,8 @@ const MovieDetailPage = () => {
     useMovieCredits(id);
   const { data: moviRecommendation, isLoading: isLoadingRecommendation } =
     useMovieRecommendations(id);
+  const { data: movieReviews, isLoading: isLoadingReviews } =
+    useMovieReviews(id);
 
   if (isLoading)
     return (
@@ -36,8 +39,7 @@ const MovieDetailPage = () => {
       <MovieTrailer data={movieVideo} isLoading={isLoadingVideo} />
       <SectionDivider />
       <MovieCredits data={movieCredits} isLoading={isLoadingCredits} />
-      <SectionDivider />
-      <MovieReviews />
+      <MovieReviews data={movieReviews} isLoading={isLoadingReviews} />
       <SectionDivider />
       <Recommendation
         data={moviRecommendation}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import useUserStore from "../store/userStore";
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -39,4 +40,14 @@ export const fetchMovieCredits = async (movieId) => {
 export const fetchMovieRecommendations = async (movieId) => {
   const response = await api.get(`/movie/${movieId}/recommendations`);
   return response.data.results.slice(0, 4);
+};
+
+export const fetchMovieReviews = async (movieId) => {
+  const token = useUserStore.getState().token;
+  const response = await api.get(`http://localhost:8000/reviews/${movieId}`, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : undefined,
+    },
+  });
+  return response.data;
 };

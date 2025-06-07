@@ -10,6 +10,8 @@ import MovieListPage from "./pages/MovieList/Index";
 import MovieDetailPage from "./pages/MovieDetail/Index";
 import NotFound from "./pages/NotFound";
 import WatchListPage from "./pages/WatchList/Index";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import GuestRoute from "./components/auth/GuestRoute";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -20,11 +22,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <GuestRoute>
+        <LoginPage />
+      </GuestRoute>
+    ),
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: (
+      <GuestRoute>
+        <RegisterPage />
+      </GuestRoute>
+    ),
   },
   {
     path: "/movies",
@@ -36,7 +46,12 @@ const router = createBrowserRouter([
   },
   {
     path: "watchlist",
-    element: <WatchListPage />,
+
+    element: (
+      <ProtectedRoute>
+        <WatchListPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
