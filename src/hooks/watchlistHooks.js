@@ -11,12 +11,18 @@ export const useWatchlist = (filter) => {
 
 export const useAddToWatchlist = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: addToWatchlist,
     onSuccess: () => {
-      // Invalidate and refetch watchlist queries to update the cache
-      queryClient.invalidateQueries({ queryKey: ["watchlist"] });
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          Array.isArray(query.queryKey) && query.queryKey[0] === "watchlist",
+      });
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          Array.isArray(query.queryKey) &&
+          query.queryKey[0] === "movie-reviews",
+      });
       alert("Movie added to watchlist successfully!");
     },
     onError: (error) => {

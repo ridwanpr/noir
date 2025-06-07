@@ -46,7 +46,6 @@ const AddWatchlistModal = ({
               value={rating}
               onChange={(e) => setRating(e.target.value)}
               className="w-full p-2 rounded bg-gray-950 text-white border border-gray-800 focus:ring-1 focus:ring-white focus:outline-none"
-              required
               disabled={isLoading}
             />
           </div>
@@ -59,7 +58,6 @@ const AddWatchlistModal = ({
               value={reviewTitle}
               onChange={(e) => setReviewTitle(e.target.value)}
               className="w-full p-2 rounded bg-gray-950 text-white border border-gray-800 focus:ring-1 focus:ring-white focus:outline-none"
-              required
               disabled={isLoading}
               placeholder="Enter a title for your review"
             />
@@ -73,7 +71,6 @@ const AddWatchlistModal = ({
               onChange={(e) => setReviewBody(e.target.value)}
               className="w-full p-2 rounded bg-gray-950 text-white border border-gray-800 focus:ring-1 focus:ring-white focus:outline-none resize-none"
               rows="4"
-              required
               disabled={isLoading}
               placeholder="Share your thoughts about this movie..."
             />

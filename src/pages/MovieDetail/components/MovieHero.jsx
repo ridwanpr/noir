@@ -27,6 +27,7 @@ const MovieHero = ({ data, credits }) => {
   const handleConfirm = () => {
     addToWatchlistMutation.mutate({
       movieId: id,
+      movieTitle: title,
       rating,
       reviewTitle,
       reviewBody,
