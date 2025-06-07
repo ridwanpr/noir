@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import useUserStore from "../../../store/userStore";
 import { logoutUser } from "../../../services/authService";
 
-const WatchListHeader = ({ watchList }) => {
+const WatchListHeader = ({ watchList, currentFilter, onFilterChange }) => {
   const navigate = useNavigate();
   const { clearUser } = useUserStore();
 
@@ -23,13 +23,28 @@ const WatchListHeader = ({ watchList }) => {
       <div className="flex space-x-1 border border-gray-800 p-1 rounded-lg w-fit bg-gray-950/50">
         {watchList && (
           <>
-            <button className="filter-btn active px-4 py-1.5 rounded-md text-sm">
+            <button
+              onClick={() => onFilterChange("all")}
+              className={`filter-btn px-4 py-1.5 rounded-md text-sm ${
+                currentFilter === "all" ? "active" : "text-gray-400"
+              }`}
+            >
               All ({watchList.reviewed_count + watchList.not_reviewed_count})
             </button>
-            <button className="filter-btn px-4 py-1.5 rounded-md text-sm text-gray-400">
+            <button
+              onClick={() => onFilterChange("reviewed")}
+              className={`filter-btn px-4 py-1.5 rounded-md text-sm ${
+                currentFilter === "reviewed" ? "active" : "text-gray-400"
+              }`}
+            >
               Reviewed ({watchList.reviewed_count})
             </button>
-            <button className="filter-btn px-4 py-1.5 rounded-md text-sm text-gray-400">
+            <button
+              onClick={() => onFilterChange("not_reviewed")}
+              className={`filter-btn px-4 py-1.5 rounded-md text-sm ${
+                currentFilter === "not_reviewed" ? "active" : "text-gray-400"
+              }`}
+            >
               Not Reviewed ({watchList.not_reviewed_count})
             </button>
           </>

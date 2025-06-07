@@ -1,7 +1,12 @@
 import api from ".";
 
-export const fetchWatchlist = async () => {
-  const response = await api.get("/watchlist");
+export const fetchWatchlist = async (filter) => {
+  const params = {};
+  if (filter && filter !== "all") {
+    params.filter = filter;
+  }
+
+  const response = await api.get("/watchlist", { params });
   return response.data;
 };
 
