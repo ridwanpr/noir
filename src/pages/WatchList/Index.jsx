@@ -10,7 +10,7 @@ const WatchListPage = () => {
     <AppLayout>
       <section className="py-16 pt-32">
         <div className="max-w-7xl mx-auto px-6">
-          <WatchListHeader />
+          <WatchListHeader watchList={watchList} />
           <WatchlistBody watchList={watchList} isLoading={isLoading} />
         </div>
       </section>
