@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addToWatchlist, fetchWatchlist } from "../services/watchlistService";
 
-export const useWatchlist = (filter) => {
+export const useWatchlist = (filter, page = 1) => {
   return useQuery({
-    queryKey: ["watchlist", filter],
-    queryFn: () => fetchWatchlist(filter),
+    queryKey: ["watchlist", filter, page],
+    queryFn: () => fetchWatchlist(filter, page),
     keepPreviousData: true,
   });
 };

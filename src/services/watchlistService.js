@@ -1,16 +1,21 @@
 import api from ".";
 
-export const fetchWatchlist = async (filter) => {
+export const fetchWatchlist = async (filter, page = 1) => {
   const params = {};
+
   if (filter && filter !== "all") {
     params.filter = filter;
   }
+
+  params.page = page;
+
   const response = await api.get("/watchlist", { params });
   return response.data;
 };
 
 export const addToWatchlist = async (watchlistData) => {
-  const { movieId, movieTitle, rating, reviewTitle, reviewBody } = watchlistData;
+  const { movieId, movieTitle, rating, reviewTitle, reviewBody } =
+    watchlistData;
 
   const payload = {
     movie_id: movieId,

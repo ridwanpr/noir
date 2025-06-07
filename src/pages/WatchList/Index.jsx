@@ -6,7 +6,17 @@ import WatchListHeader from "./components/WatchListHeader";
 
 const WatchListPage = () => {
   const [filter, setFilter] = useState("all");
-  const { data: watchList, isLoading } = useWatchlist(filter);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: watchList, isLoading } = useWatchlist(filter, currentPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setCurrentPage(1);
+  };
 
   return (
     <AppLayout>
@@ -15,9 +25,14 @@ const WatchListPage = () => {
           <WatchListHeader
             watchList={watchList}
             currentFilter={filter}
-            onFilterChange={setFilter}
+            onFilterChange={handleFilterChange}
           />
-          <WatchlistBody watchList={watchList} isLoading={isLoading} />
+          <WatchlistBody
+            watchList={watchList}
+            isLoading={isLoading}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       </section>
     </AppLayout>
