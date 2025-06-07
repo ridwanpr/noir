@@ -49,7 +49,7 @@ const FeaturedSection = ({ data }) => {
           </div>
 
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-72 md:w-80 lg:w-96 group">
+            <div className="relative w-48 md:w-56 lg:w-64 group">
               {poster_path && (
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${poster_path}`}

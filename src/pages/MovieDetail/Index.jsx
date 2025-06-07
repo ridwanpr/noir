@@ -31,7 +31,7 @@ const MovieDetailPage = () => {
 
   return (
     <AppLayout>
-      <MovieHero data={movie} />
+      <MovieHero data={movie} credits={movieCredits} />
       <SectionDivider />
       <MovieTrailer data={movieVideo} isLoading={isLoadingVideo} />
       <SectionDivider />

@@ -10,7 +10,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-12">
-            <div className="text-2xl font-bold tracking-tight">NOIR</div>
+            <Link to="/">
+              <div className="text-2xl font-bold tracking-tight">NOIR</div>
+            </Link>
             <div className="hidden md:flex space-x-8">
               <Link
                 to="/"

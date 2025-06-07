@@ -1,6 +1,6 @@
 import { PlayIcon, PlusIcon, StarIcon } from "../../../components/common/Icons";
 
-const MovieHero = ({ data }) => {
+const MovieHero = ({ data, credits }) => {
   const { title, release_date, overview, vote_average, poster_path, genres } =
     data;
 
@@ -36,7 +36,7 @@ const MovieHero = ({ data }) => {
               <div className="flex items-center space-x-1 bg-black/20 backdrop-blur-sm border border-white/5 px-3 py-1 rounded-full">
                 <StarIcon />
                 <span className="text-white font-medium text-lg">
-                  {vote_average}
+                  {vote_average.toFixed(1)}
                 </span>
                 <span className="text-gray-500 text-sm">/ 10</span>
               </div>
@@ -47,14 +47,13 @@ const MovieHero = ({ data }) => {
             <p className="text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0 font-light">
               {overview}
             </p>
-            <p className="text-gray-400 mb-2 font-light">
-              Director:{" "}
-              <span className="text-white font-medium">Denis Villeneuve</span>
-            </p>
             <p className="text-gray-400 mb-10 font-light">
               Starring:{" "}
               <span className="text-white font-medium">
-                Amy Adams, Jeremy Renner, Forest Whitaker
+                {credits.cast
+                  .map((actor) => actor.name)
+                  .slice(0, 3)
+                  .join(", ")}
               </span>
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
