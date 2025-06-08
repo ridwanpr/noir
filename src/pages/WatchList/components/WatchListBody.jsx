@@ -1,13 +1,38 @@
+import { useState } from "react";
 import Pagination from "./Pagination";
+import EditModal from "./EditModal"; // Import the EditModal
 
 const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleEditClick = (item) => {
+    setSelectedItem(item);
+    setIsEditModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedItem(null);
+  };
+
+  const handleSaveEdit = (itemId, formData) => {
+    // Here you would typically make an API call to update the item
+    console.log("Saving changes for item:", itemId, formData);
+    // Example API call:
+    // updateWatchlistItem(itemId, formData);
+
+    // You might want to refresh the watchlist data or update local state
+    // depending on your data management approach
+  };
+
   if (isLoading)
     return <div className="text-gray-300 text-center">Loading...</div>;
 
   const paginationData = watchList?.data;
   const itemsData = paginationData?.data || [];
   const totalPages = paginationData?.last_page || 1;
-  
+
   // Convert object to array if it's an object with numeric keys
   let items = [];
   if (Array.isArray(itemsData)) {
@@ -60,7 +85,10 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
               )}
             </div>
             <div className="mt-2 md:mt-0 flex md:flex-col gap-2 w-full md:w-auto justify-end">
-              <button className="bg-[#1f1f1f] border border-[#333333] text-white px-3 py-1.5 rounded-md text-xs font-medium hover:bg-[#2a2a2a] transition-colors">
+              <button
+                onClick={() => handleEditClick(item)}
+                className="bg-[#1f1f1f] border border-[#333333] text-white px-3 py-1.5 rounded-md text-xs font-medium hover:bg-[#2a2a2a] transition-colors"
+              >
                 Edit
               </button>
               <button className="bg-[#2a0a0a] border border-[#3a1a1a] text-red-400 px-3 py-1.5 rounded-md text-xs font-medium hover:bg-[#3a0a0a] hover:text-red-300 transition-colors">
@@ -70,17 +98,26 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
           </div>
         ))}
       </div>
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
       />
+
       {paginationData && (
         <div className="text-center mt-4 text-sm text-gray-400">
           Showing {paginationData.from || 0} to {paginationData.to || 0} of{" "}
           {paginationData.total || 0} results
         </div>
       )}
+
+      <EditModal
+        isOpen={isEditModalOpen}
+        onClose={handleCloseModal}
+        item={selectedItem}
+        onSave={handleSaveEdit}
+      />
     </div>
   );
 };

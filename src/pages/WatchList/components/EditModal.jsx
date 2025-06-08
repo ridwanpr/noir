@@ -1,0 +1,133 @@
+import { useState } from "react";
+
+const EditModal = ({ isOpen, onClose, item, onSave }) => {
+  const [formData, setFormData] = useState({
+    movie_title: item?.movie_title || "",
+    rating: item?.review?.rating || 0,
+    review_title: item?.review?.review_title || "",
+    review_body: item?.review?.review_body || "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleRatingChange = (rating) => {
+    setFormData((prev) => ({
+      ...prev,
+      rating,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(item.id, formData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+      <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold text-white">
+            Edit Watchlist Item
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white text-xl"
+          >
+            ×
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Movie Title
+            </label>
+            <input
+              type="text"
+              name="movie_title"
+              value={formData.movie_title}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 bg-[#111111] border border-[#333333] rounded-md text-white focus:outline-none focus:border-[#555555]"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Rating
+            </label>
+            <div className="flex space-x-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() => handleRatingChange(star)}
+                  className={`text-xl ${
+                    star <= formData.rating
+                      ? "text-yellow-500"
+                      : "text-gray-600"
+                  } hover:text-yellow-400 transition-colors`}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Review Title
+            </label>
+            <input
+              type="text"
+              name="review_title"
+              value={formData.review_title}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 bg-[#111111] border border-[#333333] rounded-md text-white focus:outline-none focus:border-[#555555]"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Review Body
+            </label>
+            <textarea
+              name="review_body"
+              value={formData.review_body}
+              onChange={handleInputChange}
+              rows={4}
+              className="w-full px-3 py-2 bg-[#111111] border border-[#333333] rounded-md text-white focus:outline-none focus:border-[#555555] resize-vertical"
+            />
+          </div>
+
+          <div className="flex space-x-2 pt-4">
+            <button
+              type="submit"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 bg-[#1f1f1f] border border-[#333333] text-white py-2 px-4 rounded-md hover:bg-[#2a2a2a] transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default EditModal;
