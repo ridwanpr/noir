@@ -29,11 +29,19 @@ const EditModal = ({ isOpen, onClose, item, onSave }) => {
     onClose();
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ${
+        isOpen
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      } bg-black/70 p-4`}
+    >
+      <div
+        className={`transform transition-all duration-300 ${
+          isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
+        } bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto`}
+      >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-white">
             Edit Watchlist Item

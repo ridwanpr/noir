@@ -112,6 +112,7 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
         </div>
       )}
 
+      {/* Edit Modal */}
       <EditModal
         isOpen={isEditModalOpen}
         onClose={handleCloseModal}
