@@ -1,10 +1,13 @@
 import { useState } from "react";
 import Pagination from "./Pagination";
-import EditModal from "./EditModal"; // Import the EditModal
+import EditModal from "./EditModal";
+import { useEditWatchlist } from "../../../hooks/watchlistHooks";
 
 const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const editWatchlistMutation = useEditWatchlist();
 
   const handleEditClick = (item) => {
     setSelectedItem(item);
@@ -16,14 +19,14 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
     setSelectedItem(null);
   };
 
-  const handleSaveEdit = (itemId, formData) => {
-    // Here you would typically make an API call to update the item
-    console.log("Saving changes for item:", itemId, formData);
-    // Example API call:
-    // updateWatchlistItem(itemId, formData);
-
-    // You might want to refresh the watchlist data or update local state
-    // depending on your data management approach
+  const handleSaveEdit = async (item, formData) => {
+    editWatchlistMutation.mutate({
+      watchlistId: item.id,
+      reviewId: item.review?.review_id || null,
+      rating: formData.rating,
+      reviewTitle: formData.review_title,
+      reviewBody: formData.review_body,
+    });
   };
 
   if (isLoading)

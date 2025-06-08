@@ -29,6 +29,23 @@ export const addToWatchlist = async (watchlistData) => {
   return response.data;
 };
 
+export const updateWatchlist = async (watchlistData) => {
+  const { rating, reviewTitle, reviewBody, reviewId, watchlistId } =
+    watchlistData;
+
+  const payload = {
+    rating: parseInt(rating),
+    review_title: reviewTitle,
+    review_body: reviewBody,
+  };
+
+  const response = await api.put(
+    `/watchlist/${watchlistId}/${reviewId}`,
+    payload
+  );
+  return response.data;
+};
+
 export const removeFromWatchlist = async (movieId) => {
   const response = await api.delete(`/watchlist/${movieId}`);
   return response.data;

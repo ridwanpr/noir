@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const EditModal = ({ isOpen, onClose, item, onSave }) => {
   const [formData, setFormData] = useState({
-    movie_title: item?.movie_title || "",
-    rating: item?.review?.rating || 0,
-    review_title: item?.review?.review_title || "",
-    review_body: item?.review?.review_body || "",
+    movie_title: "",
+    rating: 0,
+    review_title: "",
+    review_body: "",
   });
+
+  useEffect(() => {
+    if (item) {
+      setFormData({
+        movie_title: item.movie_title || "",
+        rating: item.review?.rating || 0,
+        review_title: item.review?.review_title || "",
+        review_body: item.review?.review_body || "",
+      });
+    }
+  }, [item]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +36,7 @@ const EditModal = ({ isOpen, onClose, item, onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(item.id, formData);
+    onSave(item, formData);
     onClose();
   };
 
@@ -71,9 +82,9 @@ const EditModal = ({ isOpen, onClose, item, onSave }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Rating
+              Rating (1-5) *
             </label>
-            <div className="flex space-x-1">
+            <div className="flex space-x-1 mb-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
@@ -89,11 +100,20 @@ const EditModal = ({ isOpen, onClose, item, onSave }) => {
                 </button>
               ))}
             </div>
+            <input
+              type="number"
+              min="1"
+              max="5"
+              value={formData.rating}
+              onChange={(e) => handleRatingChange(parseInt(e.target.value))}
+              className="w-full px-3 py-2 bg-[#111111] border border-[#333333] rounded-md text-white focus:outline-none focus:border-[#555555]"
+              required
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Review Title
+              Review Title *
             </label>
             <input
               type="text"
@@ -101,12 +121,14 @@ const EditModal = ({ isOpen, onClose, item, onSave }) => {
               value={formData.review_title}
               onChange={handleInputChange}
               className="w-full px-3 py-2 bg-[#111111] border border-[#333333] rounded-md text-white focus:outline-none focus:border-[#555555]"
+              placeholder="Enter a title for your review"
+              required
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Review Body
+              Review Content *
             </label>
             <textarea
               name="review_body"
@@ -114,22 +136,24 @@ const EditModal = ({ isOpen, onClose, item, onSave }) => {
               onChange={handleInputChange}
               rows={4}
               className="w-full px-3 py-2 bg-[#111111] border border-[#333333] rounded-md text-white focus:outline-none focus:border-[#555555] resize-vertical"
+              placeholder="Share your thoughts about this movie..."
+              required
             />
           </div>
 
           <div className="flex space-x-2 pt-4">
-            <button
-              type="submit"
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors"
-            >
-              Save Changes
-            </button>
             <button
               type="button"
               onClick={onClose}
               className="flex-1 bg-[#1f1f1f] border border-[#333333] text-white py-2 px-4 rounded-md hover:bg-[#2a2a2a] transition-colors"
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors font-semibold"
+            >
+              Save Changes
             </button>
           </div>
         </form>

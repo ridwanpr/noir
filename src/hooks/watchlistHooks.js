@@ -1,5 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addToWatchlist, fetchWatchlist } from "../services/watchlistService";
+import {
+  addToWatchlist,
+  fetchWatchlist,
+  updateWatchlist,
+} from "../services/watchlistService";
 
 export const useWatchlist = (filter, page = 1) => {
   return useQuery({
@@ -29,6 +33,26 @@ export const useAddToWatchlist = () => {
       console.error("Failed to add movie to watchlist:", error);
       const errorMessage =
         error.response?.data?.message || "Failed to add movie to watchlist.";
+      alert(errorMessage);
+    },
+  });
+};
+
+export const useEditWatchlist = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateWatchlist,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          Array.isArray(query.queryKey) && query.queryKey[0] === "watchlist",
+      });
+      alert("Watchlist updated successfully!");
+    },
+    onError: (error) => {
+      console.error("Failed to edit movie:", error);
+      const errorMessage =
+        error.response?.data?.message || "Failed to edit movie.";
       alert(errorMessage);
     },
   });
