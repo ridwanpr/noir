@@ -34,7 +34,7 @@ const SearchResults = ({ results, isLoading, error, query, onClose }) => {
     );
   }
 
-  const displayResults = results.slice(0, 8);
+  const displayResults = results.slice(0, 20);
 
   return (
     <div className="absolute top-full left-0 right-0 mt-2 bg-black/95 border border-gray-700 rounded-lg shadow-2xl max-h-96 overflow-y-auto z-10 backdrop-blur-sm">
@@ -82,7 +82,7 @@ const SearchResults = ({ results, isLoading, error, query, onClose }) => {
       {results.length > 8 && (
         <div className="p-3 text-center border-t border-gray-700/50">
           <p className="text-gray-400 text-xs">
-            Showing {displayResults.length} of {results.length} results
+            Showing {results.length} results
           </p>
         </div>
       )}
