@@ -46,7 +46,8 @@ export const updateWatchlist = async (watchlistData) => {
   return response.data;
 };
 
-export const removeFromWatchlist = async (movieId) => {
-  const response = await api.delete(`/watchlist/${movieId}`);
+export const removeFromWatchlist = async (watchlist) => {
+  const { watchlistId, reviewId } = watchlist;
+  const response = await api.delete(`/watchlist/${watchlistId}/${reviewId}`);
   return response.data;
 };

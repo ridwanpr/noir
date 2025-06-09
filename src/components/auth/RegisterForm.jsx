@@ -13,7 +13,6 @@ const RegisterForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    agree: false,
   });
 
   const registerMutation = useRegister();
@@ -43,7 +42,6 @@ const RegisterForm = () => {
       email: formData.email,
       password: formData.password,
       password_confirmation: formData.confirmPassword,
-      agree: formData.agree,
     };
 
     registerMutation.mutate(payload);
@@ -106,14 +104,6 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       </FormGroup>
-
-      <CheckBox
-        name="agree"
-        type="checkbox"
-        title="I agree to the Terms of Service and Privacy Policy."
-        checked={formData.agree}
-        onChange={handleChange}
-      />
 
       <Button
         type="submit"

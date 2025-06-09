@@ -1,13 +1,17 @@
 import { useState } from "react";
 import Pagination from "./Pagination";
 import EditModal from "./EditModal";
-import { useEditWatchlist } from "../../../hooks/watchlistHooks";
+import {
+  useDeleteWatchlist,
+  useEditWatchlist,
+} from "../../../hooks/watchlistHooks";
 
 const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const editWatchlistMutation = useEditWatchlist();
+  const useDeleteWatchlistMutation = useDeleteWatchlist();
 
   const handleEditClick = (item) => {
     setSelectedItem(item);
@@ -27,6 +31,14 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
       reviewTitle: formData.review_title,
       reviewBody: formData.review_body,
     });
+  };
+
+  const handleDeleteClick = async (item) => {
+    if (window.confirm("Are you sure you want to delete this watchlist?"))
+      useDeleteWatchlistMutation.mutate({
+        watchlistId: item.id,
+        reviewId: item.review?.review_id || null,
+      });
   };
 
   if (isLoading)
@@ -94,7 +106,10 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
               >
                 Edit
               </button>
-              <button className="bg-[#2a0a0a] border border-[#3a1a1a] text-red-400 px-3 py-1.5 rounded-md text-xs font-medium hover:bg-[#3a0a0a] hover:text-red-300 transition-colors">
+              <button
+                onClick={() => handleDeleteClick(item)}
+                className="bg-[#2a0a0a] border border-[#3a1a1a] text-red-400 px-3 py-1.5 rounded-md text-xs font-medium hover:bg-[#3a0a0a] hover:text-red-300 transition-colors"
+              >
                 Remove
               </button>
             </div>
@@ -115,7 +130,6 @@ const WatchlistBody = ({ watchList, isLoading, currentPage, onPageChange }) => {
         </div>
       )}
 
-      {/* Edit Modal */}
       <EditModal
         isOpen={isEditModalOpen}
         onClose={handleCloseModal}
