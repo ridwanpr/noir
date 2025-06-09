@@ -7,6 +7,7 @@ import {
   fetchMovieCredits,
   fetchMovieRecommendations,
   fetchMovieReviews,
+  searchMovies,
 } from "../services/movieService";
 
 export const useMovies = (sort, page) => {
@@ -65,3 +66,13 @@ export const useMovieReviews = (movieId) => {
   });
 };
 
+export const useSearchMovies = (query, page = 1) => {
+  return useQuery({
+    queryKey: ["searchMovies", query, page],
+    queryFn: () => searchMovies(query, page),
+    enabled: !!query && query.trim().length > 0, // Only run query if there's a search term
+    keepPreviousData: true,
+    staleTime: 60000 * 2,
+    cacheTime: 60000 * 5,
+  });
+};

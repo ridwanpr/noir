@@ -44,10 +44,28 @@ export const fetchMovieRecommendations = async (movieId) => {
 
 export const fetchMovieReviews = async (movieId) => {
   const token = useUserStore.getState().token;
-  const response = await api.get(`http://localhost:8000/api/reviews/${movieId}`, {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : undefined,
+  const response = await api.get(
+    `http://localhost:8000/api/reviews/${movieId}`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const searchMovies = async (query, page = 1) => {
+  if (!query || query.trim().length === 0) {
+    return { results: [], total_results: 0, total_pages: 0 };
+  }
+
+  const response = await api.get("/search/movie", {
+    params: {
+      query: query.trim(),
+      page: page,
     },
   });
+
   return response.data;
 };
