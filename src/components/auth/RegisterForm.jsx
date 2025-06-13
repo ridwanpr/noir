@@ -32,11 +32,6 @@ const RegisterForm = () => {
       return;
     }
 
-    if (!formData.agree) {
-      alert("Please agree to the Terms of Service and Privacy Policy.");
-      return;
-    }
-
     const payload = {
       name: formData.name,
       email: formData.email,
