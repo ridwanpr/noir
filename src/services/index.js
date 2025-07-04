@@ -2,7 +2,7 @@ import axios from "axios";
 import useUserStore from "../store/userStore";
 
 const api = axios.create({
-  baseURL: "http://172.30.178.125:8000/api",
+  baseURL: "http://localhost:8000/api",
 });
 
 api.interceptors.request.use((config) => {

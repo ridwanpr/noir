@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PlayIcon, PlusIcon, StarIcon } from "../../../components/common/Icons";
 import AddWatchlistModal from "./AddWatchlistModal";
 import { useAddToWatchlist } from "../../../hooks/watchlistHooks";
+import useUserStore from "../../../store/userStore";
 
 const MovieHero = ({ data, credits }) => {
   const {
@@ -17,6 +18,7 @@ const MovieHero = ({ data, credits }) => {
   const [rating, setRating] = useState("");
   const [reviewTitle, setReviewTitle] = useState("");
   const [reviewBody, setReviewBody] = useState("");
+  const token = useUserStore((state) => state.token);
 
   const addToWatchlistMutation = useAddToWatchlist();
 
@@ -106,18 +108,20 @@ const MovieHero = ({ data, credits }) => {
                   <PlayIcon />
                   <span>Watch Trailer</span>
                 </a>
-                <button
-                  onClick={handleAddToWatchlist}
-                  disabled={addToWatchlistMutation.isLoading}
-                  className="bg-gray-800/50 border border-gray-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700/70 transition-colors flex items-center justify-center space-x-2 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <PlusIcon />
-                  <span>
-                    {addToWatchlistMutation.isLoading
-                      ? "Adding..."
-                      : "Add to Watchlist"}
-                  </span>
-                </button>
+                {token && (
+                  <button
+                    onClick={handleAddToWatchlist}
+                    disabled={addToWatchlistMutation.isLoading}
+                    className="bg-gray-800/50 border border-gray-700 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700/70 transition-colors flex items-center justify-center space-x-2 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <PlusIcon />
+                    <span>
+                      {addToWatchlistMutation.isLoading
+                        ? "Adding..."
+                        : "Add to Watchlist"}
+                    </span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

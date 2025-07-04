@@ -3,8 +3,9 @@ import useUserStore from "../store/userStore";
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
-  params: {
-    api_key: "35ea889947e41d5818fff53ecbb4896f",
+  headers: {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNWVhODg5OTQ3ZTQxZDU4MThmZmY1M2VjYmI0ODk2ZiIsIm5iZiI6MTcwNjU5NzgzNy45NTksInN1YiI6IjY1Yjg5ZGNkOGMzMTU5MDE3YmYxZTM3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WcE_JUsUwqV2hoXMmaH-0dNMV9a3g3K6cmoxuLeKKoY",
   },
 });
 
